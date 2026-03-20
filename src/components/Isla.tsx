@@ -1,0 +1,57 @@
+import * as THREE from 'three'
+import { useGLTF } from '@react-three/drei'
+import type { GLTF } from 'three-stdlib'
+import type { ThreeElements } from '@react-three/fiber'
+
+type GLTFAction = THREE.AnimationClip;
+
+type GLTFResult = GLTF & {
+  nodes: {
+    Text: THREE.Mesh
+    Isla: THREE.Mesh
+    Agua: THREE.Mesh
+    Roca_1: THREE.Mesh
+    Roca_2: THREE.Mesh
+    Roca_3: THREE.Mesh
+    Arbol: THREE.Mesh
+    Arbol001: THREE.Mesh
+    Cartel: THREE.Mesh
+    Acueducto001: THREE.Mesh
+    Acueducto002: THREE.Mesh
+  }
+  materials: {
+    ['Material.005']: THREE.MeshStandardMaterial
+    ['Material.001']: THREE.MeshStandardMaterial
+    ['Material.002']: THREE.MeshStandardMaterial
+    ['Material.007']: THREE.MeshStandardMaterial
+    ['Material.004']: THREE.MeshStandardMaterial
+    ['Material.008']: THREE.MeshStandardMaterial
+    ['.002']: THREE.MeshStandardMaterial
+    ['.001']: THREE.MeshStandardMaterial
+    ['Material.003']: THREE.MeshStandardMaterial
+    ['Material.009']: THREE.MeshStandardMaterial
+    ['Material.010']: THREE.MeshStandardMaterial
+  }
+  animations: GLTFAction[]
+}
+
+export function Isla(props: ThreeElements['group']) {
+  const { nodes, materials } = useGLTF('/isla.glb') as unknown as GLTFResult
+  return (
+    <group {...props} dispose={null}>
+      <mesh geometry={nodes.Text.geometry} material={materials['Material.005']} position={[4.83, 1.697, 4.73]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={0.32} />
+      <mesh geometry={nodes.Isla.geometry} material={materials['Material.001']} />
+      <mesh geometry={nodes.Agua.geometry} material={materials['Material.002']} position={[9.859, 0.283, -0.003]} />
+      <mesh geometry={nodes.Roca_1.geometry} material={materials['Material.007']} position={[9.132, 0.633, -1.666]} />
+      <mesh geometry={nodes.Roca_2.geometry} material={materials['Material.004']} position={[9.126, 0.616, 1.495]} rotation={[0.146, 0.109, -0.06]} scale={1.48} />
+      <mesh geometry={nodes.Roca_3.geometry} material={materials['Material.008']} position={[8.532, 0.552, -0.287]} rotation={[2.944, 0.744, -3.051]} scale={1.714} />
+      <mesh geometry={nodes.Arbol.geometry} material={materials['.002']} position={[-4.155, 2.993, -6.615]} rotation={[0.082, -0.188, 0.015]} scale={[0.778, 0.426, 0.778]} />
+      <mesh geometry={nodes.Arbol001.geometry} material={materials['.001']} position={[-3.105, 2.354, -3.381]} rotation={[2.941, 1.156, -2.958]} scale={[0.612, 0.335, 0.612]} />
+      <mesh geometry={nodes.Cartel.geometry} material={materials['Material.003']} position={[5.697, 2.401, 3.823]} />
+      <mesh geometry={nodes.Acueducto001.geometry} material={materials['Material.009']} position={[0.046, -3.014, -0.765]} scale={0.705} />
+      <mesh geometry={nodes.Acueducto002.geometry} material={materials['Material.010']} position={[0.152, -2.677, 5.439]} scale={0.705} />
+    </group>
+  )
+}
+
+useGLTF.preload('/isla.glb')
