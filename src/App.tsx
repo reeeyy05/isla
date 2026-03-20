@@ -1,51 +1,53 @@
 import { Canvas } from '@react-three/fiber'
 import { Environment, OrbitControls } from '@react-three/drei'
-import { Isla } from './components/Isla' // Tu componente de la isla
+import { Isla } from './components/Isla' // Asegúrate de que el nombre coincide con tu componente
 import { Suspense } from 'react'
-import { Button } from './components/ui/button' // Asegúrate de que esta ruta es correcta
+import { Button } from './components/ui/button' // Asegúrate de la ruta de shadcn
 
 export default function App() {
   return (
-    // Contenedor principal idéntico al de tu compañero
-    <div className='h-dvh relative w-full overflow-hidden bg-black text-white'>
+    <div className='h-dvh relative w-full overflow-hidden bg-slate-950 text-slate-50 font-sans'>
 
-      {/* HEADER FLOTANTE (Capa superior) */}
-      <header className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
-        <h1 className="text-2xl font-bold tracking-wider">IES Albarregas</h1>
-        <nav className="flex gap-4">
-          <Button variant="ghost">Empezar</Button>
-          <Button variant="ghost">Contacto</Button>
+      {/* HEADER SUPERIOR (Conservado y mejorado) */}
+      <header className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-20 backdrop-blur-sm bg-black/10 border-b border-white/5">
+        <h1 className="text-2xl font-bold tracking-wider flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse"></span>
+          IES ALBARREGAS
+        </h1>
+        <nav className="flex gap-2 sm:gap-4">
+          <Button variant="ghost" className="text-white hover:bg-white/10">
+            Inicio
+          </Button>
+          <Button variant="ghost" className="text-white hover:bg-white/10">
+            Modelos
+          </Button>
+          <Button className="bg-cyan-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20">
+            Contacto
+          </Button>
         </nav>
       </header>
 
-      {/* TEXTO CENTRAL FLOTANTE (Capa superior) */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none text-center w-full">
-        <h2 className="text-6xl md:text-8xl font-extrabold opacity-80 tracking-widest drop-shadow-2xl">
-          ACUEDUCTO
-        </h2>
-      </div>
-
-      {/* EL CANVAS (El fondo) */}
-      <Canvas camera={{ position: [10, 10, 15], fov: 100 }}>
+      {/* EL CANVAS (Fondo 3D) */}
+      <Canvas camera={{ position: [12, 12, 16], fov: 45 }}>
         <Suspense fallback={null}>
           <Environment
             files="/suburban_garden_4k.exr"
             background
           />
           <OrbitControls
-            enableZoom={false}
+            enableZoom={true}
             makeDefault
             autoRotate
-            autoRotateSpeed={0.5}
+            autoRotateSpeed={0.8}
+            maxPolarAngle={Math.PI / 2}
           />
           <Isla />
         </Suspense>
-        <OrbitControls makeDefault />
       </Canvas>
 
-      {/* FOOTER FLOTANTE */}
-      <footer className="absolute bottom-4 w-full text-center z-10 text-sm opacity-60 pointer-events-none">
-        @2026. Todos los derechos reservados
+      {/* FOOTER DISCRETO */}
+      <footer className="absolute bottom-6 right-6 z-10 text-xs text-slate-400 font-medium pointer-events-none tracking-widest uppercase">
+        © Alejandro Rey Tostado 2026
       </footer>
 
     </div>
